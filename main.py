@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import csv
-import re
 
+# Прописываем параметры xml в хэдере
 path_xml = '/Users/anatolijrozkov/Desktop/xml CV parser/mil.xml'
 path_map = '/Users/anatolijrozkov/Desktop/xml CV parser/меппинг.csv'
 
