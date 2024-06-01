@@ -9,6 +9,7 @@ def xml_set_label(path_xml, path_map):
     # path_xml = '/Users/anatolijrozkov/Desktop/xml CV parser/mil.xml'
     # path_map = '/Users/anatolijrozkov/Desktop/xml CV parser/меппинг.csv'
 
+
     ET.register_namespace('xsi', "http://www.w3.org/2001/XMLSchema-instance")
     ET.register_namespace('Calculation', "http://www.sap.com/ndb/BiModelCalculation.ecore")
     tree = ET.parse(path_xml)
