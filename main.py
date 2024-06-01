@@ -60,7 +60,7 @@ def toggle():
         if file_csv and os.path.basename(file_csv).split('.')[1] != 'csv':
             info_label.config(text='Некорректный файл csv')
             flag_check = False
-        if flag_check and file_xml_button and file_csv:
+        if flag_check and file_xml and file_csv:
             xml_set_label(file_xml, file_csv)
     except:
         info_label.config(text='Выберите файлы')
