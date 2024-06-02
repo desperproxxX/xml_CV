@@ -63,8 +63,10 @@ def toggle():
             flag_check = False
         if flag_check and file_xml and file_csv:
             xml_set_label(file_xml, file_csv)
-    except:
-        info_label.config(text='Выберите файлы')
+    except KeyError:
+        info_label.config(text='В csv файле нет 1-й строки: desc; info_object ')
+    except NameError:
+        info_label.config(text='Не выбран файл')
 
 # Создание окна
 window = tk.Tk()
