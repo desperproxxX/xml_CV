@@ -6,15 +6,10 @@ import customtkinter
 
 
 def xml_set_label(path_xml, path_map):
-    # Прописываем параметры xml в хэдере
-    # path_xml = '/Users/anatolijrozkov/Desktop/xml CV parser/mil.xml'
-    # path_map = '/Users/anatolijrozkov/Desktop/xml CV parser/меппинг.csv'
-
-
-    ET.register_namespace('xsi', "http://www.w3.org/2001/XMLSchema-instance")
-    ET.register_namespace('Calculation', "http://www.sap.com/ndb/BiModelCalculation.ecore")
     tree = ET.parse(path_xml)
     root = tree.getroot()
+    for param, uri in ET.iterparse(path_xml, events=['start-ns']):
+        ET.register_namespace(uri[0], uri[1])
     attributes = 0
     measures = 0
     with open(path_map, encoding='utf-8') as f_maps:
@@ -71,55 +66,43 @@ customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 window = customtkinter.CTk()  # create window
 window.title('XML change lables')
-window.geometry("400x250")
-fr = customtkinter.CTkFrame(window, width=400, height=200)
-fr.pack(padx=10, pady=10)
+window.geometry("380x280")
+fr = customtkinter.CTkFrame(window, width=380, height=250, corner_radius=10)
+fr.pack(side="left", padx=10, pady=10)
+fr.grid_propagate(False)
+# fr.grid(row=0, column=0, padx=10, pady=10)
+
+
+# fr_xml_settings = customtkinter.CTkFrame(window, width=370, height=200, corner_radius=10)
+# fr_xml_settings.pack(side="right", padx=10, pady=10, fill="both", expand=True)
+# fr_xml_settings.grid_propagate(False)
+
 
 # Configure the rows and columns of the grid
 fr.columnconfigure(0, minsize=200)
 for i in range(7):
     fr.rowconfigure(i, minsize=30)
 
+# xsi = customtkinter.CTkEntry(fr_xml_settings, width=350)
+# xsi.insert('0', 'http://www.w3.org/2001/XMLSchema-instance')
+# xsi.grid(row=0, column=0, sticky="ew", padx=20)
+
 file_xml_button = customtkinter.CTkButton(fr, text="Выбрать xml", command=open_file_xml, width=300)
 file_xml_button.grid(row=0, column=0, sticky="ew", padx=20)
 
-file_xml_label = customtkinter.CTkLabel(fr, text="Файл xml: ")
+file_xml_label = customtkinter.CTkLabel(fr, text="Файл xml: ",  wraplength=350, font=('Tahoma', 11))
 file_xml_label.grid(row=1, column=0, sticky="w", padx=20)
 
 file_csv_button = customtkinter.CTkButton(fr, text="Выбрать меппинг csv", command=open_file_csv)
 file_csv_button.grid(row=2, column=0, sticky="ew", padx=20)
 
-file_csv_label = customtkinter.CTkLabel(fr, text="Файл csv: ")
+file_csv_label = customtkinter.CTkLabel(fr, text="Файл csv: ",  wraplength=350, font=('Tahoma', 11))
 file_csv_label.grid(row=3, column=0, sticky="w", padx=20)
 
 set_label_button = customtkinter.CTkButton(fr, text="Выполнить", command=toggle)
 set_label_button.grid(row=4, column=0, sticky="ew", padx=20)
 
-info_label = customtkinter.CTkLabel(fr, text="Информация")
+info_label = customtkinter.CTkLabel(fr, text="Информация",  wraplength=350, font=('Tahoma', 12))
 info_label.grid(row=5, column=0, sticky="w", padx=20, pady=20)
 
 window.mainloop()
-# window = customtkinter.CTk()  # create window
-# window.geometry("400x300")
-# fr = customtkinter.CTkFrame(window, width=400, height=200)
-# fr.pack(padx=20, pady=20)
-#
-# file_xml_button = customtkinter.CTkButton(fr, text="Выбрать xml", command=open_file_xml)
-# file_xml_button.grid(row=0, column=0, padx=100, pady=10)
-#
-# file_xml_label = customtkinter.CTkLabel(fr, text="Файл 1: ")
-# file_xml_label.grid(row=1, column=0, padx=100, pady=10)
-#
-# file_csv_button = customtkinter.CTkButton(fr, text="Выбрать меппинг csv", command=open_file_csv)
-# file_csv_button.grid(row=3, column=0, padx=100, pady=10)
-#
-# file_csv_label = customtkinter.CTkLabel(fr, text="Файл 2: ")
-# file_csv_label.grid(row=4, column=0, padx=100, pady=10)
-#
-# set_label_button = customtkinter.CTkButton(fr, text="Выполнить", command=toggle)
-# set_label_button.grid(row=5, column=0, padx=100, pady=10)
-#
-# info_label = customtkinter.CTkLabel(fr, text="Информация")
-# info_label.grid(row=6, column=0, padx=100, pady=10)
-#
-# window.mainloop()
