@@ -4,8 +4,7 @@ from tkinter import filedialog
 import os
 import customtkinter
 
-
-
+# Основная функция для смены лэйблов в xml
 def xml_set_label(path_xml, path_map):
     tree = ET.parse(path_xml)
     root = tree.getroot()
@@ -40,8 +39,6 @@ def open_file_xml():
     global file_xml
     file_xml = filedialog.askopenfilename(title="Выберите файл xml")
     file_xml_label.configure(text=file_xml)
-
-
 
 def open_file_csv():
     global file_csv
