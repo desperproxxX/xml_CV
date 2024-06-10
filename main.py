@@ -5,6 +5,7 @@ import os
 import customtkinter
 
 
+
 def xml_set_label(path_xml, path_map):
     tree = ET.parse(path_xml)
     root = tree.getroot()
@@ -31,6 +32,7 @@ def xml_set_label(path_xml, path_map):
                 measures += 1
 
     tree.write(os.path.join(os.path.dirname(path_xml), os.path.splitext(os.path.basename(path_xml))[0]+"_modified.xml"), encoding='utf-8', xml_declaration=True)
+    # Чекаем ветку
 
     info_label.configure(text=f'Аттрибутов заменено: {attributes}\nПоказателей заменено: {measures}')
 
