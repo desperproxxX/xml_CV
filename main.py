@@ -4,12 +4,22 @@ from tkinter import filedialog
 import os
 import customtkinter
 
+
+def add_missing_namespace(root, prefix, uri):
+    # Добавим пространство имён вручную, если его нет в корневом элементе
+    if f'{{{uri}}}' not in root.tag:
+        root.attrib[f'xmlns:{prefix}'] = uri
+        print(f'Added missing namespace: {prefix} -> {uri}')  # Диагностический вывод
 # Основная функция для смены лэйблов в xml
 def xml_set_label(path_xml, path_map):
     tree = ET.parse(path_xml)
     root = tree.getroot()
-    for param, uri in ET.iterparse(path_xml, events=['start-ns']):
-        ET.register_namespace(uri[0], uri[1])
+    namespaces = dict([node for _, node in ET.iterparse(path_xml, events=['start-ns'])])
+    for prefix, uri in namespaces.items():
+        ET.register_namespace(prefix, uri)
+        print(f'Registered namespace: {prefix} -> {uri}')
+    # Добавим пространство имён Variable, если оно отсутствует
+    add_missing_namespace(root, 'Variable', 'http://www.sap.com/ndb/BiModelVariable.ecore')
     attributes = 0
     measures = 0
     with open(path_map, encoding='utf-8') as f_maps:
